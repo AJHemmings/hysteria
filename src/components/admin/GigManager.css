@@ -1,0 +1,80 @@
+.gig-manager__add {
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.gig-manager__form-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.gig-manager__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.gig-manager__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.gig-manager__item {
+  padding: var(--space-lg);
+}
+
+.gig-manager__view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.gig-manager__gig-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.gig-manager__gig-date {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  letter-spacing: 0.05em;
+}
+
+.gig-manager__gig-venue {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.gig-manager__gig-city {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.gig-manager__actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.gig-manager__edit { width: 100%; }
+
+.gig-manager__edit-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .gig-manager__form-grid { grid-template-columns: 1fr; }
+  .gig-manager__view { flex-direction: column; align-items: flex-start; }
+  .gig-manager__gig-info { flex-direction: column; align-items: flex-start; gap: var(--space-xs); }
+}

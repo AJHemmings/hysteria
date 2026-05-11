@@ -1,0 +1,22 @@
+.video-section {
+  /* transparent — hero bg shows through */
+}
+
+.video-section__loading {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.video-section__skeleton {
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 25%,
+    var(--bg-tertiary) 50%,
+    var(--bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

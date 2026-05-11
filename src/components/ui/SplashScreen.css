@@ -1,0 +1,70 @@
+.splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Transition background separately */
+  transition: background-color 1s ease-in-out, opacity 1s ease-in-out 0.5s;
+}
+
+.splash--fade-in {
+  opacity: 1;
+}
+
+.splash--fade-in .splash__content {
+  animation: splashLogoFadeIn 0.5s ease-in forwards;
+}
+
+.splash--hold {
+  opacity: 1;
+}
+
+.splash--fade-out {
+  background-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.splash--hold .splash__content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.splash--fade-out .splash__content {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.splash__logo {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  /* Cinematic glow removed for full-screen cover */
+}
+
+
+.splash__fallback-text {
+  font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 12vw, 8rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  text-shadow: 0 0 30px var(--accent-glow);
+}

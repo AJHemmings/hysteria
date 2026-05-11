@@ -1,0 +1,117 @@
+.yt-player {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.yt-player__wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  box-shadow: 0 0 40px var(--accent-glow), var(--shadow-card);
+  border: var(--glass-border);
+}
+
+.yt-player__iframe,
+.yt-player__wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.yt-player__placeholder {
+  width: 100%;
+  padding-top: 56.25%;
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  border: var(--glass-border);
+}
+
+.yt-player__placeholder p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Controls overlay */
+.yt-player__controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.yt-player__controls.visible {
+  opacity: 1;
+}
+
+/* Buttons */
+.yt-player__btn {
+  pointer-events: all;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 26, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(108, 99, 255, 0.25);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.yt-player__btn:hover {
+  background: rgba(108, 99, 255, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.yt-player__btn--play {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+}
+
+.yt-player__btn--play:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.yt-player__btn--mute {
+  bottom: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+}
+
+@media (max-width: 768px) {
+  .yt-player__btn--play {
+    width: 48px;
+    height: 48px;
+  }
+
+  .yt-player__btn--mute {
+    width: 36px;
+    height: 36px;
+    bottom: 10px;
+    right: 10px;
+  }
+}

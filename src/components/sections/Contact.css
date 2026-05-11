@@ -1,0 +1,80 @@
+.contact {
+  /* transparent — hero bg shows through */
+  padding-bottom: var(--space-xl);
+}
+
+.contact__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+/* Email */
+.contact__email {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  transition: color var(--transition-base), text-shadow var(--transition-base);
+}
+
+.contact__email:hover {
+  color: var(--accent-secondary);
+  text-shadow: 0 0 12px var(--accent-cyan-glow);
+}
+
+/* Social buttons */
+.contact__social {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.contact__social-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all var(--transition-base);
+}
+
+.contact__social-btn svg {
+  font-size: 1.1rem;
+}
+
+.contact__social-btn:hover {
+  color: var(--text-primary);
+  background: rgba(108, 99, 255, 0.15);
+  box-shadow: 0 0 25px var(--accent-glow);
+  transform: translateY(-3px);
+}
+
+/* Footer */
+.contact__footer {
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(108, 99, 255, 0.1);
+  text-align: center;
+}
+
+.contact__footer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact__social {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+}
