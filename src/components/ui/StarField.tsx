@@ -31,17 +31,20 @@ export default function StarField() {
     window.addEventListener('resize', resize);
 
     // Initialize stars
-    const starCount = 150;
-    starsRef.current = Array.from({ length: starCount }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 2 + 0.5,
-      opacity: Math.random() * 0.6 + 0.2,
-      twinkleSpeed: Math.random() * 0.02 + 0.005,
-      twinkleOffset: Math.random() * Math.PI * 2,
-      driftX: (Math.random() - 0.5) * 0.15,
-      driftY: (Math.random() - 0.5) * 0.1,
-    }));
+    const starCount = 200;
+    starsRef.current = Array.from({ length: starCount }, () => {
+      const size = Math.random() < 0.1 ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.2;
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: size,
+        opacity: Math.random() * 0.5 + 0.1,
+        twinkleSpeed: Math.random() * 0.015 + 0.005,
+        twinkleOffset: Math.random() * Math.PI * 2,
+        driftX: (Math.random() - 0.5) * 0.1,
+        driftY: (Math.random() - 0.5) * 0.05,
+      };
+    });
 
     let time = 0;
     const animate = () => {
@@ -51,7 +54,7 @@ export default function StarField() {
       for (const star of starsRef.current) {
         // Twinkle
         const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset);
-        const currentOpacity = star.opacity + twinkle * 0.2;
+        const currentOpacity = Math.max(0, star.opacity + twinkle * 0.3);
 
         // Drift
         star.x += star.driftX;
@@ -63,17 +66,26 @@ export default function StarField() {
         if (star.y < 0) star.y = canvas.height;
         if (star.y > canvas.height) star.y = 0;
 
-        // Draw
+        // Draw star core
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 210, 255, ${Math.max(0, currentOpacity)})`;
+        // Vary color slightly between white and icy blue
+        const blueTint = Math.random() > 0.8 ? '255' : '230';
+        ctx.fillStyle = `rgba(255, ${blueTint}, 255, ${currentOpacity})`;
         ctx.fill();
 
-        // Glow for larger stars
-        if (star.size > 1.5) {
+        // Add glow to larger/brighter stars
+        if (star.size > 1.2) {
+          const gradient = ctx.createRadialGradient(
+            star.x, star.y, 0,
+            star.x, star.y, star.size * 4
+          );
+          gradient.addColorStop(0, `rgba(0, 212, 255, ${currentOpacity * 0.4})`);
+          gradient.addColorStop(1, 'rgba(0, 212, 255, 0)');
+          
           ctx.beginPath();
-          ctx.arc(star.x, star.y, star.size * 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(108, 99, 255, ${Math.max(0, currentOpacity * 0.15)})`;
+          ctx.arc(star.x, star.y, star.size * 4, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
           ctx.fill();
         }
       }

@@ -11,40 +11,37 @@ export default function Contact() {
         <h2 className="heading-lg section__title">Contact Us</h2>
 
         <div className="contact__content">
-          {/* Email */}
-          {settings.contact_email && (
-            <a href={`mailto:${settings.contact_email}`} className="contact__email">
-              {settings.contact_email}
-            </a>
-          )}
-
           {/* Social icons */}
           <div className="contact__social">
-            {settings.facebook_url && (
-              <a
-                href={settings.facebook_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact__social-btn"
-                aria-label="Facebook"
-              >
-                <FaFacebookF />
-                <span>Facebook</span>
-              </a>
-            )}
-            {settings.instagram_url && (
-              <a
-                href={settings.instagram_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact__social-btn"
-                aria-label="Instagram"
-              >
-                <FaInstagram />
-                <span>Instagram</span>
-              </a>
-            )}
+            <a
+              href={settings.facebook_url || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact__social-btn"
+              aria-label="Facebook"
+            >
+              <FaFacebookF />
+              <span>Facebook</span>
+            </a>
+            <a
+              href={settings.instagram_url || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact__social-btn"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+              <span>Instagram</span>
+            </a>
           </div>
+
+          {/* Email */}
+          <a 
+            href={`mailto:${settings.contact_email || 'tomburden86@gmail.com'}`} 
+            className="contact__email"
+          >
+            {settings.contact_email || 'tomburden86@gmail.com'}
+          </a>
         </div>
 
         {/* Footer */}

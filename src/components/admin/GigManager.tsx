@@ -169,14 +169,14 @@ export default function GigManager() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="new-ticket" className="form-label">Ticket URL</label>
+            <label htmlFor="new-ticket" className="form-label">Event / Ticket Link</label>
             <input
               id="new-ticket"
               type="url"
               className="form-input"
               value={newTicketUrl}
               onChange={(e) => setNewTicketUrl(e.target.value)}
-              placeholder="https://tickets.venue.com/..."
+              placeholder="https://venue.com or https://tickets.com"
             />
           </div>
         </div>
@@ -219,6 +219,7 @@ export default function GigManager() {
                       className="form-input"
                       value={editTicketUrl}
                       onChange={(e) => setEditTicketUrl(e.target.value)}
+                      placeholder="Event / Ticket Link"
                     />
                   </div>
                   <div className="gig-manager__edit-actions">

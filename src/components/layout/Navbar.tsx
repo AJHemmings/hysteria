@@ -72,28 +72,24 @@ export default function Navbar({ visible }: NavbarProps) {
 
         {/* Social icons */}
         <div className="navbar__social">
-          {settings.facebook_url && (
-            <a
-              href={settings.facebook_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="navbar__social-icon"
-              aria-label="Facebook"
-            >
-              <FaFacebookF />
-            </a>
-          )}
-          {settings.instagram_url && (
-            <a
-              href={settings.instagram_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="navbar__social-icon"
-              aria-label="Instagram"
-            >
-              <FaInstagram />
-            </a>
-          )}
+          <a
+            href={settings.facebook_url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar__social-icon"
+            aria-label="Facebook"
+          >
+            <FaFacebookF />
+          </a>
+          <a
+            href={settings.instagram_url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar__social-icon"
+            aria-label="Instagram"
+          >
+            <FaInstagram />
+          </a>
         </div>
 
         {/* Mobile hamburger */}
@@ -121,16 +117,12 @@ export default function Navbar({ visible }: NavbarProps) {
           Contact Us
         </button>
         <div className="navbar__mobile-social">
-          {settings.facebook_url && (
-            <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <FaFacebookF />
-            </a>
-          )}
-          {settings.instagram_url && (
-            <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FaInstagram />
-            </a>
-          )}
+          <a href={settings.facebook_url || '#'} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <FaFacebookF />
+          </a>
+          <a href={settings.instagram_url || '#'} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <FaInstagram />
+          </a>
         </div>
       </div>
     </nav>

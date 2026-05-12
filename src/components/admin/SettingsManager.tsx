@@ -67,7 +67,7 @@ export default function SettingsManager() {
         <div className="form-group">
           <label htmlFor="settings-email" className="form-label">Contact Email</label>
           <input id="settings-email" type="email" className="form-input" value={email}
-            onChange={(e) => setEmail(e.target.value)} placeholder="band@hysteria.com" />
+            onChange={(e) => setEmail(e.target.value)} placeholder="tomburden86@gmail.com" />
         </div>
         <button type="submit" className="btn btn--primary" disabled={saving}>
           {saving ? 'Saving...' : 'Save Settings'}

@@ -16,7 +16,7 @@ export default function Hero() {
       {/* Dynamic dim overlay */}
       <div
         className="hero__overlay"
-        style={{ backgroundColor: `rgba(10, 10, 26, ${overlayOpacity})` }}
+        style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
       />
 
       {/* Content */}

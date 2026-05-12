@@ -5,11 +5,11 @@
    ============================================ */
 :root {
   /* Colors */
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #111128;
-  --bg-tertiary: #1a1a3e;
-  --bg-glass: rgba(17, 17, 40, 0.6);
-  --bg-glass-strong: rgba(17, 17, 40, 0.85);
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --bg-glass: rgba(0, 0, 0, 0.5);
+  --bg-glass-strong: rgba(0, 0, 0, 0.8);
 
   --accent-primary: #6c63ff;
   --accent-secondary: #00d4ff;
