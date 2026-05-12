@@ -26,25 +26,36 @@ export default function StarField() {
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      
+      // If we already have stars, ensure they are within the new bounds
+      if (starsRef.current.length > 0) {
+        for (const star of starsRef.current) {
+          if (star.x > canvas.width) star.x = Math.random() * canvas.width;
+          if (star.y > canvas.height) star.y = Math.random() * canvas.height;
+        }
+      }
     };
     resize();
     window.addEventListener('resize', resize);
 
-    // Initialize stars
-    const starCount = 200;
-    starsRef.current = Array.from({ length: starCount }, () => {
-      const size = Math.random() < 0.1 ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.2;
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: size,
-        opacity: Math.random() * 0.5 + 0.1,
-        twinkleSpeed: Math.random() * 0.015 + 0.005,
-        twinkleOffset: Math.random() * Math.PI * 2,
-        driftX: (Math.random() - 0.5) * 0.1,
-        driftY: (Math.random() - 0.5) * 0.05,
-      };
-    });
+    // Initialize stars (only if empty)
+    if (starsRef.current.length === 0) {
+      const isMobile = window.innerWidth < 768;
+      const starCount = isMobile ? 80 : 200;
+      starsRef.current = Array.from({ length: starCount }, () => {
+        const size = Math.random() < 0.1 ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.2;
+        return {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: size,
+          opacity: Math.random() * 0.5 + 0.1,
+          twinkleSpeed: Math.random() * 0.015 + 0.005,
+          twinkleOffset: Math.random() * Math.PI * 2,
+          driftX: (Math.random() - 0.5) * 0.1,
+          driftY: (Math.random() - 0.5) * 0.05,
+        };
+      });
+    }
 
     let time = 0;
     const animate = () => {

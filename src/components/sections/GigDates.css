@@ -143,14 +143,47 @@
 @media (max-width: 768px) {
   .gig-dates__item {
     gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md);
   }
 
   .gig-dates__date {
-    min-width: 55px;
+    min-width: 50px;
   }
 
   .gig-dates__day {
     font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gig-dates__item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: var(--space-sm);
+  }
+
+  .gig-dates__divider {
+    width: 30px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-primary), transparent);
+    margin: var(--space-xs) 0;
+  }
+
+  .gig-dates__date {
+    flex-direction: row;
+    gap: var(--space-xs);
+    align-items: baseline;
+    min-width: auto;
+  }
+
+  .gig-dates__year {
+    display: none;
+  }
+  
+  .gig-dates__external-icon {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
   }
 }
