@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   facebook_url: '',
   instagram_url: '',
   contact_email: '',
-  youtube_video_id: '',
+  youtube_video_id: '9WhguJtzWuI',
   updated_at: '',
 };
 
@@ -35,7 +35,12 @@ export function useSettings() {
         .single();
 
       if (fetchError) throw fetchError;
-      if (data) setSettings(data as SiteSettings);
+      if (data) {
+        setSettings({
+          ...data,
+          youtube_video_id: data.youtube_video_id || DEFAULT_SETTINGS.youtube_video_id
+        } as SiteSettings);
+      }
     } catch (err) {
       console.error('Failed to fetch settings:', err);
       setError('Failed to load site settings');

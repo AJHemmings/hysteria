@@ -24,7 +24,9 @@ CREATE TABLE IF NOT EXISTS public.site_settings (
 );
 
 -- Insert the default settings row
-INSERT INTO public.site_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING;
+INSERT INTO public.site_settings (id, youtube_video_id) 
+VALUES (1, '9WhguJtzWuI') 
+ON CONFLICT (id) DO UPDATE SET youtube_video_id = EXCLUDED.youtube_video_id;
 
 -- Auto-update the updated_at timestamp on changes
 CREATE OR REPLACE FUNCTION update_site_settings_timestamp()
