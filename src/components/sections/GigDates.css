@@ -1,7 +1,3 @@
-.gig-dates {
-  /* transparent — hero bg shows through */
-}
-
 .gig-dates__list {
   display: flex;
   flex-direction: column;
