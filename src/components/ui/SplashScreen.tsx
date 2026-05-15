@@ -6,35 +6,53 @@ interface SplashScreenProps {
 }
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
-  const [phase, setPhase] = useState<'fade-in' | 'hold' | 'fade-out'>('fade-in');
+  const [phase, setPhase] = useState<'loading' | 'fade-in' | 'hold' | 'fade-out'>('loading');
 
   useEffect(() => {
     // Lock scroll during splash
     document.body.style.overflow = 'hidden';
-
-    // Phase 1: Fade in everything (1s)
-    const holdTimer = setTimeout(() => {
-      setPhase('hold');
-    }, 1000);
-
-    // Phase 2: Hold (2s)
-    const fadeOutTimer = setTimeout(() => {
-      setPhase('fade-out');
-    }, 3000);
-
-    // Phase 3: Complete
-    const completeTimer = setTimeout(() => {
-      document.body.style.overflow = '';
-      onComplete();
-    }, 4000);
-
     return () => {
-      clearTimeout(holdTimer);
-      clearTimeout(fadeOutTimer);
-      clearTimeout(completeTimer);
       document.body.style.overflow = '';
     };
-  }, [onComplete]);
+  }, []);
+
+  useEffect(() => {
+    if (phase === 'fade-in') {
+      const timer = setTimeout(() => {
+        setPhase('hold');
+      }, 2000);
+      return () => clearTimeout(timer);
+    } else if (phase === 'hold') {
+      const timer = setTimeout(() => {
+        setPhase('fade-out');
+      }, 2000);
+      return () => clearTimeout(timer);
+    } else if (phase === 'fade-out') {
+      const timer = setTimeout(() => {
+        onComplete();
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [phase, onComplete]);
+
+  const handleLoad = () => {
+    if (phase === 'loading') {
+      // Slight delay to ensure React has painted the initial loading state (opacity 0)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setPhase('fade-in');
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    // Failsafe in case image fails to load or load event is missed
+    const failsafe = setTimeout(() => {
+      if (phase === 'loading') handleLoad();
+    }, 1000);
+    return () => clearTimeout(failsafe);
+  }, [phase]);
 
   return (
     <div className={`splash splash--${phase}`} aria-hidden="true">
@@ -43,12 +61,14 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           src="/images/splash-logo.png"
           alt="Hysteria"
           className="splash__logo"
+          onLoad={handleLoad}
           onError={(e) => {
             // Fallback to text if logo image not found
             const target = e.target as HTMLImageElement;
             target.style.display = 'none';
             const fallback = target.nextElementSibling as HTMLElement;
             if (fallback) fallback.style.display = 'block';
+            handleLoad();
           }}
         />
         <h1 className="splash__fallback-text" style={{ display: 'none' }}>
