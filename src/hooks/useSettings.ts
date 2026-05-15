@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   facebook_url: '',
   instagram_url: '',
   contact_email: '',
-  youtube_video_id: '9WhguJtzWuI',
+  youtube_video_id: 'XCUZSS54drI',
   updated_at: '',
 };
 
