@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 
 export default function SettingsManager() {
-  const [facebook, setFacebook] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [email, setEmail] = useState('');
-  const [youtubeVideoId, setYoutubeVideoId] = useState('');
+  const [settings, setSettings] = useState({
+    facebook: '',
+    instagram: '',
+    email: '',
+    youtubeVideoId: '',
+  });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
@@ -16,17 +18,19 @@ export default function SettingsManager() {
   };
 
   useEffect(() => {
-    async function fetch() {
+    async function loadSettings() {
       const { data } = await supabase.from('site_settings').select('*').eq('id', 1).single();
       if (data) {
-        setFacebook(data.facebook_url || '');
-        setInstagram(data.instagram_url || '');
-        setEmail(data.contact_email || '');
-        setYoutubeVideoId(data.youtube_video_id || '');
+        setSettings({
+          facebook: data.facebook_url || '',
+          instagram: data.instagram_url || '',
+          email: data.contact_email || '',
+          youtubeVideoId: data.youtube_video_id || '',
+        });
       }
       setLoading(false);
     }
-    fetch();
+    loadSettings();
   }, []);
 
   const handleSave = async (e: React.FormEvent) => {
@@ -36,10 +40,10 @@ export default function SettingsManager() {
       const { error } = await supabase
         .from('site_settings')
         .update({
-          facebook_url: facebook,
-          instagram_url: instagram,
-          contact_email: email,
-          youtube_video_id: youtubeVideoId,
+          facebook_url: settings.facebook,
+          instagram_url: settings.instagram,
+          contact_email: settings.email,
+          youtube_video_id: settings.youtubeVideoId,
         })
         .eq('id', 1);
       if (error) throw error;
@@ -59,23 +63,23 @@ export default function SettingsManager() {
       <form onSubmit={handleSave} className="glass-card" style={{ padding: 'var(--space-xl)' }}>
         <div className="form-group">
           <label htmlFor="settings-fb" className="form-label">Facebook URL</label>
-          <input id="settings-fb" type="url" className="form-input" value={facebook}
-            onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/..." />
+          <input id="settings-fb" type="url" className="form-input" value={settings.facebook}
+            onChange={(e) => setSettings(prev => ({ ...prev, facebook: e.target.value }))} placeholder="https://facebook.com/..." />
         </div>
         <div className="form-group">
           <label htmlFor="settings-ig" className="form-label">Instagram URL</label>
-          <input id="settings-ig" type="url" className="form-input" value={instagram}
-            onChange={(e) => setInstagram(e.target.value)} placeholder="https://instagram.com/..." />
+          <input id="settings-ig" type="url" className="form-input" value={settings.instagram}
+            onChange={(e) => setSettings(prev => ({ ...prev, instagram: e.target.value }))} placeholder="https://instagram.com/..." />
         </div>
         <div className="form-group">
           <label htmlFor="settings-email" className="form-label">Contact Email</label>
-          <input id="settings-email" type="email" className="form-input" value={email}
-            onChange={(e) => setEmail(e.target.value)} placeholder="tomburden86@gmail.com" />
+          <input id="settings-email" type="email" className="form-input" value={settings.email}
+            onChange={(e) => setSettings(prev => ({ ...prev, email: e.target.value }))} placeholder="tomburden86@gmail.com" />
         </div>
         <div className="form-group">
           <label htmlFor="settings-video" className="form-label">YouTube Video ID</label>
-          <input id="settings-video" type="text" className="form-input" value={youtubeVideoId}
-            onChange={(e) => setYoutubeVideoId(e.target.value)} placeholder="e.g. 9WhguJtzWuI" />
+          <input id="settings-video" type="text" className="form-input" value={settings.youtubeVideoId}
+            onChange={(e) => setSettings(prev => ({ ...prev, youtubeVideoId: e.target.value }))} placeholder="e.g. 9WhguJtzWuI" />
           <p className="text-muted" style={{ fontSize: '0.8rem', marginTop: '4px' }}>
             The ID from the URL (e.g. watch?v=<b>9WhguJtzWuI</b>)
           </p>
