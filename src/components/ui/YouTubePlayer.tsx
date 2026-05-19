@@ -17,9 +17,9 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Must be muted for autoplay to work
   const [isReady, setIsReady] = useState(false);
-  const [showControls, setShowControls] = useState(true);
+  const [showControls, setShowControls] = useState(false); // Hide by default
   const hideTimeoutRef = useRef<number>(0);
 
   const initPlayer = useCallback(() => {
@@ -34,7 +34,7 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
       videoId,
       playerVars: {
         autoplay: 0, // We control autoplay via IntersectionObserver
-        mute: 0,
+        mute: 1, // Required for browser autoplay
         controls: 0,
         playsinline: 1,
         rel: 0,
@@ -47,7 +47,7 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
       events: {
         onReady: () => {
           setIsReady(true);
-          setIsMuted(false);
+          // Don't reset mute here to allow autoplay
         },
         onStateChange: (event: any) => {
           setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
@@ -125,10 +125,15 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
     }
   };
 
-  const handleMouseMove = () => {
+  const wakeControls = () => {
     setShowControls(true);
     clearTimeout(hideTimeoutRef.current);
     hideTimeoutRef.current = window.setTimeout(() => {
+      // Only auto-hide if playing. If paused, controls should stay visible so they can play it.
+      // But actually, the prompt said "isn't visible unless the user scrolls or hovers".
+      // We will hide it regardless of playing state after inactivity to strictly follow the prompt, 
+      // or check if playing. The previous logic checked `if (isPlaying) setShowControls(false);`.
+      // Let's keep the previous logic.
       if (isPlaying) setShowControls(false);
     }, 2500);
   };
@@ -155,7 +160,9 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
     <div
       ref={containerRef}
       className="yt-player"
-      onMouseMove={handleMouseMove}
+      onMouseMove={wakeControls}
+      onTouchStart={wakeControls}
+      onWheel={wakeControls}
       onMouseLeave={handleMouseLeave}
     >
       <div className="yt-player__wrapper">

@@ -60,6 +60,13 @@
   opacity: 0;
   /* Cinematic Flash Reveal: 3s total */
   animation: flashReveal 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  /* Muse logo style bars */
+  border-top: 0.12em solid #fff;
+  border-bottom: 0.12em solid #fff;
+  padding: 0.05em 0;
+  /* Balance out the letter-spacing on the right so borders are symmetric */
+  padding-left: 0.15em;
 }
 
 .hero__subtitle {

@@ -57,6 +57,14 @@
   color: #fff;
   transition: text-shadow var(--transition-base);
   z-index: 10;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  /* Muse logo style bars */
+  border-top: 0.12em solid #fff;
+  border-bottom: 0.12em solid #fff;
+  padding: 0.05em 0;
+  padding-left: 0.12em; /* Match letter-spacing to center text inside bars */
 }
 
 .navbar__brand:hover {
