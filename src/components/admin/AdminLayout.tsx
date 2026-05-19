@@ -3,9 +3,10 @@ import { useAuth } from '../../context/AuthContext';
 import GigManager from './GigManager';
 import SettingsManager from './SettingsManager';
 import VideoManager from './VideoManager';
+import UserManager from './UserManager';
 import './AdminLayout.css';
 
-type Tab = 'gigs' | 'settings' | 'video';
+type Tab = 'gigs' | 'settings' | 'video' | 'users';
 
 export default function AdminLayout() {
   const [activeTab, setActiveTab] = useState<Tab>('gigs');
@@ -48,6 +49,12 @@ export default function AdminLayout() {
         >
           Video
         </button>
+        <button
+          className={`admin__tab ${activeTab === 'users' ? 'active' : ''}`}
+          onClick={() => setActiveTab('users')}
+        >
+          Users
+        </button>
       </nav>
 
       {/* Content */}
@@ -55,6 +62,7 @@ export default function AdminLayout() {
         {activeTab === 'gigs' && <GigManager />}
         {activeTab === 'settings' && <SettingsManager />}
         {activeTab === 'video' && <VideoManager />}
+        {activeTab === 'users' && <UserManager />}
       </main>
     </div>
   );

@@ -6,7 +6,6 @@ export default function SettingsManager() {
     facebook: '',
     instagram: '',
     email: '',
-    youtubeVideoId: '',
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -25,7 +24,6 @@ export default function SettingsManager() {
           facebook: data.facebook_url || '',
           instagram: data.instagram_url || '',
           email: data.contact_email || '',
-          youtubeVideoId: data.youtube_video_id || '',
         });
       }
       setLoading(false);
@@ -43,7 +41,6 @@ export default function SettingsManager() {
           facebook_url: settings.facebook,
           instagram_url: settings.instagram,
           contact_email: settings.email,
-          youtube_video_id: settings.youtubeVideoId,
         })
         .eq('id', 1);
       if (error) throw error;
@@ -76,15 +73,7 @@ export default function SettingsManager() {
           <input id="settings-email" type="email" className="form-input" value={settings.email}
             onChange={(e) => setSettings(prev => ({ ...prev, email: e.target.value }))} placeholder="tomburden86@gmail.com" />
         </div>
-        <div className="form-group">
-          <label htmlFor="settings-video" className="form-label">YouTube Video ID</label>
-          <input id="settings-video" type="text" className="form-input" value={settings.youtubeVideoId}
-            onChange={(e) => setSettings(prev => ({ ...prev, youtubeVideoId: e.target.value }))} placeholder="e.g. 9WhguJtzWuI" />
-          <p className="text-muted" style={{ fontSize: '0.8rem', marginTop: '4px' }}>
-            The ID from the URL (e.g. watch?v=<b>9WhguJtzWuI</b>)
-          </p>
-        </div>
-        <button type="submit" className="btn btn--primary" disabled={saving}>
+<button type="submit" className="btn btn--primary" disabled={saving}>
           {saving ? 'Saving...' : 'Save Settings'}
         </button>
       </form>

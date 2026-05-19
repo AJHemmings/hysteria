@@ -1,0 +1,135 @@
+.user-manager__invite {
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.user-manager__form-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.user-manager__invite-row {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.user-manager__invite-row .form-input {
+  flex: 1;
+}
+
+.user-manager__invite-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+}
+
+.user-manager__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.user-manager__item {
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.user-manager__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.user-manager__email {
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-manager__date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.user-manager__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.user-manager__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-width: 36px;
+  text-align: right;
+}
+
+.user-manager__badge--admin {
+  color: var(--accent-primary);
+}
+
+/* Toggle switch */
+.user-manager__toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.user-manager__toggle--on {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.user-manager__toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform var(--transition-base), background var(--transition-base);
+  display: block;
+}
+
+.user-manager__toggle--on .user-manager__toggle-knob {
+  transform: translateX(20px);
+  background: #fff;
+}
+
+@media (max-width: 600px) {
+  .user-manager__invite-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-manager__item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-manager__actions {
+    align-self: flex-end;
+  }
+}

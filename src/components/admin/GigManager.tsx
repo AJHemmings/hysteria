@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
+import DatePicker from '../ui/DatePicker';
 import './GigManager.css';
 
 interface Gig {
@@ -135,12 +136,11 @@ export default function GigManager() {
         <div className="gig-manager__form-grid">
           <div className="form-group">
             <label htmlFor="new-date" className="form-label">Date</label>
-            <input
+            <DatePicker
               id="new-date"
-              type="date"
-              className="form-input"
               value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
+              onChange={setNewDate}
+              placeholder="Pick a date"
               required
             />
           </div>
@@ -196,11 +196,9 @@ export default function GigManager() {
                 /* Edit mode */
                 <div className="gig-manager__edit">
                   <div className="gig-manager__form-grid">
-                    <input
-                      type="date"
-                      className="form-input"
+                    <DatePicker
                       value={editDate}
-                      onChange={(e) => setEditDate(e.target.value)}
+                      onChange={setEditDate}
                     />
                     <input
                       type="text"

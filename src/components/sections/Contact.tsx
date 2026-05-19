@@ -1,6 +1,6 @@
-import { FaFacebookF, FaInstagram } from 'react-icons/fa';
-import { useSettings } from '../../hooks/useSettings';
-import './Contact.css';
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { useSettings } from "../../hooks/useSettings";
+import "./Contact.css";
 
 export default function Contact() {
   const { settings } = useSettings();
@@ -14,7 +14,7 @@ export default function Contact() {
           {/* Social icons */}
           <div className="contact__social">
             <a
-              href={settings.facebook_url || '#'}
+              href={settings.facebook_url || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="contact__social-btn"
@@ -24,7 +24,7 @@ export default function Contact() {
               <span>Facebook</span>
             </a>
             <a
-              href={settings.instagram_url || '#'}
+              href={settings.instagram_url || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="contact__social-btn"
@@ -36,17 +36,21 @@ export default function Contact() {
           </div>
 
           {/* Email */}
-          <a 
-            href={`mailto:${settings.contact_email || 'tomburden86@gmail.com'}`} 
+          <a
+            href={`mailto:${settings.contact_email || "tomburden86@gmail.com"}`}
             className="contact__email"
           >
-            {settings.contact_email || 'tomburden86@gmail.com'}
+            {settings.contact_email || "tomburden86@gmail.com"}
           </a>
         </div>
 
         {/* Footer */}
         <footer className="contact__footer">
-          <p>&copy; {new Date().getFullYear()} Hysteria — A Muse Tribute</p>
+          <p>&copy; {new Date().getFullYear()} Hysteria</p>
+          <p>
+            Website created by{" "}
+            <a href="https://adamhemmings.com/" className="contact__credit-link" target="_blank" rel="noopener noreferrer">Adam Hemmings</a>
+          </p>
         </footer>
       </div>
     </section>

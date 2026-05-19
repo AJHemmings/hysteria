@@ -1,0 +1,224 @@
+.dp-container {
+  position: relative;
+}
+
+.dp-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dp-trigger--empty span {
+  color: var(--text-muted);
+}
+
+.dp-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.dp-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 1000;
+  padding: var(--space-md);
+  animation: fadeInUp 0.15s ease;
+}
+
+/* ── DayPicker internals ── */
+.dp {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.dp__months {
+  display: flex;
+}
+
+/* position:relative lets .dp__nav sit absolute inside it */
+.dp__month {
+  position: relative;
+  width: 280px;
+}
+
+/* Caption holds the dropdowns on the left; nav floats right via position:absolute */
+.dp__caption {
+  display: flex;
+  align-items: center;
+  height: 2.75rem;
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Dropdown caption layout ── */
+
+.dp__dropdowns {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Each wrapper positions the invisible <select> over the visible label */
+.dp__dropdown-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The visible pill label — this is what the user reads */
+.dp__caption-label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  user-select: none;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.dp__dropdown-root:hover .dp__caption-label {
+  background: rgba(108, 99, 255, 0.2);
+  border-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+/*
+ * The actual <select> — invisible overlay on top of the label.
+ * Captures click/keyboard events; the label above renders the value.
+ */
+.dp__dropdown {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  z-index: 2;
+  appearance: none;
+  background: transparent;
+}
+
+/* ── Nav buttons — absolute top-right of the month ── */
+.dp__nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 2.75rem;
+  gap: 4px;
+}
+
+.dp__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.dp__nav-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: rgba(108, 99, 255, 0.15);
+}
+
+.dp__nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.dp__chevron {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ── Grid — it's a <table>, so let table layout do its job ── */
+.dp__month-grid {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.dp__weekday {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-xs) 0 var(--space-sm);
+  width: 40px;
+}
+
+.dp__day {
+  text-align: center;
+  width: 40px;
+  height: 36px;
+  padding: 1px;
+}
+
+.dp__day-btn {
+  width: 36px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.dp__day-btn:hover:not(:disabled) {
+  background: rgba(108, 99, 255, 0.2);
+  color: var(--accent-primary);
+}
+
+.dp__day--today .dp__day-btn {
+  color: var(--accent-secondary);
+  font-weight: 700;
+}
+
+.dp__day--selected .dp__day-btn {
+  background: var(--accent-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.dp__day--selected .dp__day-btn:hover {
+  background: #8b7aff;
+}
+
+.dp__day--outside .dp__day-btn {
+  color: var(--text-muted);
+}
+
+.dp__day--disabled .dp__day-btn {
+  color: var(--text-muted);
+  opacity: 0.35;
+  cursor: not-allowed;
+}
