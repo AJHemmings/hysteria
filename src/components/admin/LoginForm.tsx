@@ -8,7 +8,10 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const [view, setView] = useState<'login' | 'forgot'>('login');
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetSent, setResetSent] = useState(false);
+  const { signIn, resetPassword } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,6 +27,69 @@ export default function LoginForm() {
       navigate('/admin');
     }
   };
+
+  const handleReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    const { error: resetError } = await resetPassword(resetEmail);
+    if (resetError) {
+      setError(resetError);
+    } else {
+      setResetSent(true);
+    }
+    setLoading(false);
+  };
+
+  const switchToForgot = () => {
+    setView('forgot');
+    setResetEmail(email);
+    setError('');
+  };
+
+  if (view === 'forgot') {
+    return (
+      <div className="login-page">
+        <div className="login-card glass-card">
+          <h1 className="login-title">HYSTERIA</h1>
+          <p className="login-subtitle">Reset Password</p>
+
+          {resetSent ? (
+            <div className="login-success">
+              Check your email for a reset link. You can close this page.
+            </div>
+          ) : (
+            <form onSubmit={handleReset} className="login-form">
+              {error && <div className="login-error">{error}</div>}
+
+              <div className="form-group">
+                <label htmlFor="reset-email" className="form-label">Email</label>
+                <input
+                  id="reset-email"
+                  type="email"
+                  className="form-input"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  placeholder="admin@hysteria.band"
+                  required
+                  autoComplete="email"
+                />
+              </div>
+
+              <button type="submit" className="btn btn--primary login-submit" disabled={loading}>
+                {loading ? 'Sending...' : 'Send Reset Link'}
+              </button>
+            </form>
+          )}
+
+          <button className="login-back login-back--btn" onClick={() => { setView('login'); setError(''); setResetSent(false); }}>
+            ← Back to sign in
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="login-page">
@@ -60,6 +126,9 @@ export default function LoginForm() {
               required
               autoComplete="current-password"
             />
+            <button type="button" className="login-forgot-link" onClick={switchToForgot}>
+              Forgot password?
+            </button>
           </div>
 
           <button type="submit" className="btn btn--primary login-submit" disabled={loading}>

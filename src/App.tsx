@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import LoginForm from './components/admin/LoginForm';
+import ResetPassword from './pages/ResetPassword';
 
 function ProtectedRoute() {
   const { session, loading } = useAuth();
@@ -35,6 +36,7 @@ function ProtectedRoute() {
 const router = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: '/admin/login', element: <LoginForm /> },
+  { path: '/admin/reset-password', element: <ResetPassword /> },
   {
     element: <ProtectedRoute />,
     children: [{ path: '/admin', element: <Admin /> }],
