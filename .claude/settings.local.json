@@ -6,7 +6,26 @@
       "Bash(git push *)",
       "Bash(npm install *)",
       "Bash(npm ls *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "PowerShell(vercel *)",
+      "PowerShell(npm i *)",
+      "Bash(vercel --version)",
+      "Bash(vercel whoami *)",
+      "Bash(vercel projects *)",
+      "Bash(vercel link)",
+      "Bash(vercel domains *)",
+      "Bash(vercel api *)",
+      "Bash(vercel dns *)",
+      "mcp__claude_ai_Vercel__get_project",
+      "Bash(vercel *)",
+      "Bash(git log *)",
+      "Bash(New-Item -ItemType Directory -Force \"F:\\\\Projects\\\\hysteria\\\\supabase\\\\functions\\\\invite-user\")",
+      "Bash(Out-Null)",
+      "Bash(Write-Output \"done\")",
+      "PowerShell(New-Item *)",
+      "mcp__plugin_supabase_supabase__deploy_edge_function",
+      "Bash(npx supabase *)",
+      "mcp__plugin_supabase_supabase__get_logs"
     ]
   }
 }

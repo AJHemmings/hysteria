@@ -12,13 +12,21 @@ export default function ResetPassword() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Handle case where AuthContext already processed the recovery token
-    const isRecoveryUrl = window.location.hash.includes('type=recovery');
-    if (isRecoveryUrl) {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session) setReady(true);
-      });
+    // Handle error redirects from Supabase (e.g. expired or already-used link)
+    const params = new URLSearchParams(window.location.search);
+    const errorCode = params.get('error_code');
+    if (errorCode) {
+      const description = params.get('error_description')?.replace(/\+/g, ' ');
+      setError(description ?? 'This link is invalid or has expired. Please request a new one.');
+      return;
     }
+
+    // With PKCE flow, Supabase processes token_hash from query params during init —
+    // PASSWORD_RECOVERY may fire before this component mounts. Always check for an
+    // existing session first so we don't miss it.
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) setReady(true);
+    });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') setReady(true);
@@ -51,7 +59,14 @@ export default function ResetPassword() {
       <div className="login-page">
         <div className="login-card glass-card">
           <h1 className="login-title">HYSTERIA</h1>
-          <p className="login-subtitle">Verifying reset link...</p>
+          {error ? (
+            <>
+              <div className="login-error">{error}</div>
+              <a href="/admin/login" className="btn btn--primary login-submit">Back to Login</a>
+            </>
+          ) : (
+            <p className="login-subtitle">Verifying reset link...</p>
+          )}
         </div>
       </div>
     );
