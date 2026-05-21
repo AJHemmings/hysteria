@@ -20,7 +20,7 @@ export default function UserManager() {
 
   const showToast = (type: 'success' | 'error', message: string) => {
     setToast({ type, message });
-    setTimeout(() => setToast(null), 3000);
+    setTimeout(() => setToast(null), 5000);
   };
 
   const fetchUsers = async () => {
@@ -86,7 +86,8 @@ export default function UserManager() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Failed to send invitation');
       setInviteEmail('');
-      showToast('success', `Invitation sent to ${inviteEmail}`);
+      const resetAt = new Date(Date.now() + 60 * 60 * 1000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      showToast('success', `Invite sent. No email? Rate limit resets at ${resetAt}.`);
       fetchUsers();
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to send invitation';
