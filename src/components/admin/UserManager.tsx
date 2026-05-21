@@ -91,12 +91,8 @@ export default function UserManager() {
       fetchUsers();
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to send invitation';
-      if (message.toLowerCase().includes('rate limit')) {
-        const resetAt = new Date(Date.now() + 60 * 60 * 1000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        showToast('error', `Email rate limit exceeded. Try again after ${resetAt}.`);
-      } else {
-        showToast('error', message);
-      }
+      const resetAt = new Date(Date.now() + 60 * 60 * 1000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      showToast('error', `${message} — retry after ${resetAt}`);
     } finally {
       setInviting(false);
     }
