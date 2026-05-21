@@ -67,7 +67,8 @@ export default function UserManager() {
     e.preventDefault();
     setInviting(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session }, error: refreshError } = await supabase.auth.refreshSession();
+      if (refreshError || !session) throw new Error('Session expired — please log in again');
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/invite-user`,
         {
@@ -99,7 +100,8 @@ export default function UserManager() {
     if (!window.confirm(`Delete ${email}? This cannot be undone.`)) return;
     setDeletingId(userId);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session }, error: refreshError } = await supabase.auth.refreshSession();
+      if (refreshError || !session) throw new Error('Session expired — please log in again');
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/invite-user`,
         {
