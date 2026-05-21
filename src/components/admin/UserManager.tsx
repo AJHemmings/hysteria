@@ -92,7 +92,7 @@ export default function UserManager() {
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to send invitation';
       const resetAt = new Date(Date.now() + 60 * 60 * 1000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-      showToast('error', `${message} — retry after ${resetAt}`);
+      showToast('error', `${message}: retry after ${resetAt}`);
     } finally {
       setInviting(false);
     }
