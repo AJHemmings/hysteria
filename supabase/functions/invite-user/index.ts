@@ -50,8 +50,10 @@ Deno.serve(async (req) => {
     }
 
     // Invite user action
-    const { email } = body;
-    const { data, error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email);
+    const { email, redirectTo } = body;
+    const { data, error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
+      redirectTo: redirectTo ?? undefined,
+    });
     if (error) throw error;
 
     // Create profile row so the user appears in the list immediately

@@ -76,7 +76,10 @@ export default function UserManager() {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${session?.access_token}`,
           },
-          body: JSON.stringify({ email: inviteEmail }),
+          body: JSON.stringify({
+            email: inviteEmail,
+            redirectTo: `${window.location.origin}/admin/reset-password`,
+          }),
         }
       );
       const json = await res.json();

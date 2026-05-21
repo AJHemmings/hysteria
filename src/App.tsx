@@ -5,6 +5,16 @@ import Admin from './pages/Admin';
 import LoginForm from './components/admin/LoginForm';
 import ResetPassword from './pages/ResetPassword';
 
+function HomeOrInvite() {
+  const hash = window.location.hash;
+  const params = new URLSearchParams(window.location.search);
+  const authType = params.get('type') ?? new URLSearchParams(hash.slice(1)).get('type');
+  if (authType === 'invite' || authType === 'recovery') {
+    return <Navigate to={`/admin/reset-password${window.location.search}${hash}`} replace />;
+  }
+  return <Home />;
+}
+
 function ProtectedRoute() {
   const { session, loading } = useAuth();
 
@@ -34,7 +44,7 @@ function ProtectedRoute() {
 // ProtectedRoute only calls useAuth() when React renders it,
 // at which point it will be inside the AuthProvider tree.
 const router = createBrowserRouter([
-  { path: '/', element: <Home /> },
+  { path: '/', element: <HomeOrInvite /> },
   { path: '/admin/login', element: <LoginForm /> },
   { path: '/admin/reset-password', element: <ResetPassword /> },
   {
