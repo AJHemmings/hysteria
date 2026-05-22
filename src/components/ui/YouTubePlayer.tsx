@@ -21,6 +21,7 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
   const [isReady, setIsReady] = useState(false);
   const [showControls, setShowControls] = useState(false); // Hide by default
   const hideTimeoutRef = useRef<number>(0);
+  const hasAutoUnmutedRef = useRef(false);
 
   const initPlayer = useCallback(() => {
     if (!containerRef.current || !window.YT?.Player) return;
@@ -50,7 +51,13 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
           // Don't reset mute here to allow autoplay
         },
         onStateChange: (event: any) => {
-          setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+          const playing = event.data === window.YT.PlayerState.PLAYING;
+          setIsPlaying(playing);
+          if (playing && !hasAutoUnmutedRef.current) {
+            hasAutoUnmutedRef.current = true;
+            playerRef.current?.unMute();
+            setIsMuted(false);
+          }
         },
       },
     });
