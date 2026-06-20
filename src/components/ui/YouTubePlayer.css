@@ -59,6 +59,40 @@
   font-size: 1rem;
 }
 
+/* Transparent overlay that intercepts clicks before they reach the iframe */
+.yt-player__click-interceptor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* Tap-to-unmute hint */
+.yt-player__unmute-hint {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  animation: fadeIn 0.4s ease;
+}
+
 /* Controls overlay */
 .yt-player__controls {
   position: absolute;
@@ -66,7 +100,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 2; /* buttons inside have pointer-events: all, so they sit above the interceptor at z-index 1 */
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--transition-base);

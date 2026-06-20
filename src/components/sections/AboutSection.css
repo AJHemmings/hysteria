@@ -1,0 +1,39 @@
+.about-section {
+  padding-top: 0;
+  padding-bottom: var(--space-xl);
+}
+
+.about-section__tagline {
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+
+  /* Base white lives inside the gradient so background-clip: text works */
+  background: linear-gradient(
+    105deg,
+    #e8e8f0 0%,
+    #e8e8f0 40%,
+    #ffffff 50%,
+    #e8e8f0 60%,
+    #e8e8f0 100%
+  ) no-repeat;
+  background-size: 300% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  /* Shine sweeps once after 3s, then text sits at plain white (position 100%) */
+  animation: textShine 0.9s ease forwards 3s;
+}
+
+@keyframes textShine {
+  from { background-position: 0% 0; }
+  to   { background-position: 100% 0; }
+}
